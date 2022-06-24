@@ -9,10 +9,11 @@ import (
 )
 
 func init() {
+	ctx := context.Background()
 	// Load the Shared AWS Configuration (~/.aws/config)
-	cfg, err := config.LoadDefaultConfig(context.TODO())
+	cfg, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(cfg)
+	fmt.Println(cfg.Credentials)
 }
