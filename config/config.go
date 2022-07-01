@@ -11,7 +11,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func init() {
+func DBOpen() *sql.DB {
 
 	var dbName string = "postgres"
 	var dbUser string = "ikekazu"
@@ -43,9 +43,27 @@ func init() {
 
 	fmt.Println("open db server")
 
+	rows, err := db.Query("set search_path=sample;")
+	if err != nil {
+		log.Fatal("ErrorgetRows db.Query error err:%v", err)
+	}
+	if rows != nil {
+		log.Print(rows)
+	}
+
+	// rows, err := db.Query("c")
+	if err != nil {
+		log.Fatal("ErrorgetRows db.Query error err:%v", err)
+	}
+	if rows != nil {
+		log.Print(rows)
+	}
+
 	// 以下でエラー
 	err = db.Ping()
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
+
+	return db
 }
